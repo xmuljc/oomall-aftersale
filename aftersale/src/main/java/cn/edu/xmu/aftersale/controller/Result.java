@@ -1,13 +1,24 @@
 package cn.edu.xmu.aftersale.controller;
 
-import java.util.Map;
+import lombok.Data;
 
-public final class Result {
-    private Result() {}
-    public static Map<String, Object> ok() {
-        return Map.of("errno", 0, "errmsg", "成功");
+@Data
+public class Result {
+    private int errno;
+    private String errmsg;
+    private Object data;
+
+    public static Result success() {
+        Result r = new Result();
+        r.errno = 0;
+        r.errmsg = "成功";
+        return r;
     }
-    public static Map<String, Object> fail(int errno, String errmsg) {
-        return Map.of("errno", errno, "errmsg", errmsg);
+
+    public static Result fail(int code, String msg) {
+        Result r = new Result();
+        r.errno = code;
+        r.errmsg = msg;
+        return r;
     }
 }
